@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class RentACatImpl implements RentACat {
-
 	private ArrayList<Cat> cats = new ArrayList<Cat>();
 
 	/**
@@ -16,10 +15,19 @@ public class RentACatImpl implements RentACat {
 	 * @param id the ID of the cat to rent
 	 * @return true if cat exists and was rented out, false otherwise
 	 */
-
 	public boolean returnCat(int id) {
-		// TODO: Fill in
-		return false;
+		Cat c = getCat(id);
+
+		if (c == null) {
+			return false;
+		} else if (!c.getRented()) {
+			System.out.println(c.getName() + " is already here!");
+			return false;
+		}
+
+		c.returnCat();
+		System.out.println("Welcome back, " + c.getName() + "!");
+		return true;
 	}
 
 	/**
@@ -31,10 +39,19 @@ public class RentACatImpl implements RentACat {
 	 * @param id the ID of the cat to rent
 	 * @return true if cat exists and was not rented out, false otherwise
 	 */
-
 	public boolean rentCat(int id) {
-		// TODO: Fill in
-		return false;
+		Cat c = getCat(id);
+
+		if (c == null) {
+			return false;
+		} else if (c.getRented()) {
+			System.out.println("Sorry, " + c.getName() + " is not here!");
+			return false;
+		}
+
+		c.rentCat();
+		System.out.println(c.getName() + " has been rented.");
+		return true;
 	}
 
 	/**
@@ -45,10 +62,15 @@ public class RentACatImpl implements RentACat {
 	 * @param id the ID of the cat to rename
 	 * @return true if cat exists, false otherwise
 	 */
-
 	public boolean renameCat(int id, String name) {
-		// TODO: Fill in
-		return false;
+		Cat c = getCat(id);
+
+		if (c == null) {
+			return false;
+		}
+
+		c.renameCat(name);
+		return true;
 	}
 
 	/**
@@ -62,8 +84,14 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public String listCats() {
-		// TODO: Fill in
-		return "WRITE CODE FOR THIS";
+		StringBuilder sb = new StringBuilder();
+
+		for (Cat c : cats) {
+			if (!c.getRented()) {
+				sb.append(c.toString()).append("\n");
+			}
+		}
+		return sb.toString();
 	}
 
 	/**

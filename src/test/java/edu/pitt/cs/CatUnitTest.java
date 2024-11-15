@@ -7,9 +7,6 @@ import org.junit.FixMethodOrder;
 import org.junit.runners.MethodSorters;
 import static org.junit.Assert.*;
 
-import org.mockito.Mockito;
-import static org.mockito.Mockito.*;
-
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CatUnitTest {
 
@@ -25,19 +22,11 @@ public class CatUnitTest {
 
 	@Before
 	public void setUp() throws Exception {
-		// INITIALIZE THE TEST FIXTURE
-
-		// Create a Cat with ID 1 and name "Jennyanydots", assign to c using a call to Cat.createInstance(InstanceType, int, String).
-		// Passing InstanceType.IMPL as the first parameter will create a real cat using your CatImpl implementation.
-		// Passing InstanceType.MOCK as the first parameter will create a mock cat using Mockito.
-		// Which type is the correct choice for this unit test?  I'll leave it up to you.  The answer is in the Unit Testing Part 2 lecture. :)
-		// TODO: Fill in
+		c = Cat.createInstance(InstanceType.IMPL, 1, "Jennyanydots");
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		// Not necessary strictly speaking since the references will be overwritten in
-		// the next setUp call anyway and Java has automatic garbage collection.
 		c = null;
 	}
 
@@ -52,7 +41,7 @@ public class CatUnitTest {
 	 */
 	@Test
 	public void testGetId() {
-		// TODO: Fill in
+		assertEquals(1, c.getId());
 	}
 
 	/**
@@ -66,7 +55,7 @@ public class CatUnitTest {
 	 */
 	@Test
 	public void testGetName() {
-		// TODO: Fill in
+		assertEquals("Jennyanydots", c.getName());
 	}
 
 	/**
@@ -80,7 +69,7 @@ public class CatUnitTest {
 	 */
 	@Test
 	public void testGetRented() {
-		// TODO: Fill in
+		assertFalse(c.getRented());
 	}
 
 	/**
@@ -94,7 +83,7 @@ public class CatUnitTest {
 	 */
 	@Test
 	public void testToString() {
-		// TODO: Fill in
+		assertEquals("ID 1. Jennyanydots", c.toString());
 	}
 
 	/**
@@ -109,7 +98,8 @@ public class CatUnitTest {
 	 */
 	@Test
 	public void testRentCat() {
-		// TODO: Fill in
+		c.rentCat();
+		assertTrue(c.getRented());
 	}
 
 	/**
@@ -125,22 +115,15 @@ public class CatUnitTest {
 	 */
 	@Test
 	public void testReturnCat() {
-		// TODO: Fill in
+		c.rentCat();
+		c.returnCat();
+		assertFalse(c.getRented());
 	}
 
-	/**
-	 * Test case for int renameCat().
-	 * 
-	 * <pre>
-	 * Preconditions: c has been created with ID 1, and name "Jennyanydots".
-	 * Execution steps: Call c.renameCat("Garfield").
-	 * Postconditions: Return value of c.getName() is "Garfield".
-	 *                 Return value of c.toString() is "ID 1. Garfield".
-	 * </pre>
-	 */
 	@Test
 	public void testRenameCat() {
-		// TODO: Fill in
+		c.renameCat("Garfield");
+		assertEquals("Garfield", c.getName());
+		assertEquals("ID 1. Garfield", c.toString());
 	}
-
 }
